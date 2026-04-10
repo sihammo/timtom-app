@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "I4aa3Pfnfs4pvjA73K5dW"
+uri = "file://workspace_source.tar.gz"
+type = "unspecified"
+title = "السورس كود - نظام إدارة التوزيع"
