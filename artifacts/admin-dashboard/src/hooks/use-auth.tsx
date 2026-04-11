@@ -35,8 +35,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       toast({ title: "تم تسجيل الدخول بنجاح" });
     },
-    onError: () => {
-      toast({ title: "فشل تسجيل الدخول", description: "تأكد من بيانات الدخول", variant: "destructive" });
+    onError: (error: any) => {
+      let description = "تأكد من بيانات الدخول";
+      if (error.response?.status === 401) {
+        description = "اسم المستخدم أو كلمة المرور غير صحيحة";
+      } else if (error.response?.status === 403) {
+        description = "تم تعطيل هذا الحساب";
+      } else if (!error.response) {
+        description = "لا يمكن الاتصال بالخادم. يرجى التأكد من تشغيل الـ API";
+      }
+      toast({ title: "فشل تسجيل الدخول", description, variant: "destructive" });
     }
   });
 

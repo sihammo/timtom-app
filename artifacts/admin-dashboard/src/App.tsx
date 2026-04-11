@@ -37,9 +37,8 @@ function ProtectedRoute({ component: Component, allowedRole }: { component: any,
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    return <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 gap-6">
-      <img src="/brand-logo.png" alt="Logo" className="w-24 h-24 rounded-3xl shadow-2xl animate-pulse" />
-      <div className="animate-spin w-10 h-10 border-4 border-primary border-t-transparent rounded-full" />
+    return <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full" />
     </div>;
   }
 

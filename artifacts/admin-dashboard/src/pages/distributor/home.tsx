@@ -16,8 +16,8 @@ export default function DistributorHome() {
   return (
     <div className="space-y-6 pt-4">
       
-      {/* Quick Stats (Mocked for generic dist logic, usually needs specific endpoint, using local mock logic based on user data if available) */}
       <div className="bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center">
+        <img src="/brand-logo.png" alt="Tim & Tom" className="w-20 h-20 rounded-2xl mb-4 shadow-md" />
         <p className="text-slate-500 font-semibold mb-1">الأموال المحصلة</p>
         <h2 className="text-4xl font-display font-bold text-emerald-600 mb-6">
            --- د.ج
