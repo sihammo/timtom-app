@@ -41,14 +41,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         "fixed inset-y-0 right-0 z-50 w-72 bg-sidebar text-sidebar-foreground border-l border-sidebar-border transition-transform duration-300 lg:translate-x-0 lg:static lg:flex-shrink-0 flex flex-col",
         isMobileOpen ? "translate-x-0" : "translate-x-full"
       )}>
-        <div className="p-6 border-b border-sidebar-border/50 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/20">
-            <Package className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h1 className="font-display font-bold text-xl text-white">توزيع برو</h1>
-            <p className="text-xs text-sidebar-foreground/60">نظام الإدارة الشامل</p>
-          </div>
+        <div className="p-4 border-b border-sidebar-border/50">
+          <img src="/brand-logo.png" alt="Tim & Tom" className="w-full h-auto rounded-xl shadow-lg shadow-black/20" />
         </div>
 
         <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1">
@@ -99,8 +93,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       <main className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <header className="h-16 flex items-center justify-between px-6 bg-white/50 backdrop-blur-md border-b border-border/50 sticky top-0 z-30 lg:hidden">
           <div className="flex items-center gap-3">
-            <Package className="w-6 h-6 text-primary" />
-            <h1 className="font-display font-bold text-lg">توزيع برو</h1>
+            <img src="/brand-logo.png" alt="Tim & Tom" className="h-10 w-10 rounded-lg" />
           </div>
           <button 
             onClick={() => setIsMobileOpen(true)}

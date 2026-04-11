@@ -57,17 +57,17 @@
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
   
-  --primary: 221 83% 53%;
-  --primary-foreground: 210 40% 98%;
+  --primary: 0 71% 37%;
+  --primary-foreground: 0 0% 100%;
   
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 47% 11%;
+  --secondary: 47 100% 50%; /* Gold for accents */
+  --secondary-foreground: 0 0% 0%;
   
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
   
-  --accent: 262 83% 58%;
-  --accent-foreground: 210 40% 98%;
+  --accent: 47 100% 50%;
+  --accent-foreground: 0 0% 0%;
   
   --success: 142 71% 45%;
   --success-foreground: 210 40% 98%;
@@ -75,13 +75,16 @@
   --warning: 38 92% 50%;
   --warning-foreground: 210 40% 98%;
   
+  --warning: 38 92% 50%;
+  --warning-foreground: 210 40% 98%;
+  
   --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 98%;
 
-  --sidebar: 222 47% 11%;
+  --sidebar: 0 71% 25%;
   --sidebar-foreground: 210 40% 98%;
-  --sidebar-border: 217 33% 17%;
-  --sidebar-active: 221 83% 53%;
+  --sidebar-border: 0 71% 20%;
+  --sidebar-active: 47 100% 50%;
 
   --radius: 0.75rem;
 }

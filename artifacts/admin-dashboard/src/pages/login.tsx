@@ -25,9 +25,7 @@ export default function Login() {
         className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 relative z-10 border border-white/50"
       >
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl shadow-primary/30">
-            <Package className="w-8 h-8 text-white" />
-          </div>
+          <img src="/brand-logo.png" alt="Tim & Tom" className="w-20 h-20 rounded-2xl mx-auto mb-4 shadow-xl shadow-primary/20" />
           <h1 className="text-3xl font-display font-bold text-slate-900 mb-2">مرحباً بك مجدداً</h1>
           <p className="text-slate-500">سجل دخولك للمتابعة إلى نظام إدارة التوزيع</p>
         </div>

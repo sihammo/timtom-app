@@ -50,6 +50,10 @@ export default function MapPage() {
           }
         });
       }
+
+      setTimeout(() => {
+        map.invalidateSize();
+      }, 500);
     });
 
     return () => {

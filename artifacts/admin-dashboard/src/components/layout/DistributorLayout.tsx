@@ -14,8 +14,11 @@ export function DistributorLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-gray-50 flex flex-col pb-20">
       {/* Header */}
       <header className="bg-primary text-primary-foreground px-6 py-4 rounded-b-3xl shadow-lg shadow-primary/20 sticky top-0 z-30">
-        <div className="flex justify-between items-center mb-2">
-          <h1 className="font-display font-bold text-2xl">تطبيق الموزع</h1>
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center gap-3">
+            <img src="/brand-logo.png" alt="Tim & Tom" className="h-10 w-10 rounded-lg shadow-md" />
+            <h1 className="font-display font-bold text-xl">Tim & Tom</h1>
+          </div>
           <button onClick={() => logoutMutation.mutate()} className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
             <LogOut className="w-5 h-5" />
           </button>

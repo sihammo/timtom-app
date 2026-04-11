@@ -11,6 +11,20 @@ export default function Products() {
   const { data: products, isLoading } = useGetProducts();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [editingProd, setEditingProd] = useState<Product | null>(null);
+  const deleteMutation = useDeleteProduct();
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  const handleDelete = (id: number) => {
+    if (confirm("هل أنت متأكد من حذف هذه السلعة؟")) {
+      deleteMutation.mutate({ id }, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['/api/products'] });
+          toast({ title: "تم الحذف بنجاح" });
+        }
+      });
+    }
+  };
 
   if (isLoading) return <div className="p-8 text-center">جاري التحميل...</div>;
 
@@ -45,9 +59,18 @@ export default function Products() {
               <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-primary">
                 <CircleAlert className="w-6 h-6" />
               </div>
-              <button onClick={() => setEditingProd(prod)} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                <Edit2 className="w-4 h-4" />
-              </button>
+              <div className="flex gap-1">
+                <button onClick={() => setEditingProd(prod)} className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                  <Edit2 className="w-4 h-4" />
+                </button>
+                <button 
+                  onClick={() => handleDelete(prod.id)} 
+                  disabled={deleteMutation.isPending}
+                  className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors disabled:opacity-50"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
             </div>
             
             <h3 className="font-bold text-lg text-slate-900 mb-1">{prod.name}</h3>

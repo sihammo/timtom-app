@@ -21,6 +21,8 @@ import Suggestions from "@/pages/admin/suggestions";
 
 import DistributorHome from "@/pages/distributor/home";
 import DistributorTasks from "@/pages/distributor/tasks";
+import DistributorMap from "@/pages/distributor/map";
+import SuggestStore from "@/pages/distributor/suggest";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,8 +37,9 @@ function ProtectedRoute({ component: Component, allowedRole }: { component: any,
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-slate-50">
-      <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full" />
+    return <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 gap-6">
+      <img src="/brand-logo.png" alt="Logo" className="w-24 h-24 rounded-3xl shadow-2xl animate-pulse" />
+      <div className="animate-spin w-10 h-10 border-4 border-primary border-t-transparent rounded-full" />
     </div>;
   }
 
@@ -78,12 +81,8 @@ function Router() {
 
       <Route path="/distributor" component={() => <ProtectedRoute component={DistributorHome} allowedRole="distributor" />} />
       <Route path="/distributor/tasks" component={() => <ProtectedRoute component={DistributorTasks} allowedRole="distributor" />} />
-      <Route path="/distributor/map" component={() => <ProtectedRoute component={() => (
-        <div className="p-6 text-center text-slate-500 font-semibold mt-20">جاري تحميل الخريطة...</div>
-      )} allowedRole="distributor" />} />
-      <Route path="/distributor/suggest" component={() => <ProtectedRoute component={() => (
-        <div className="p-6 text-center text-slate-500 font-semibold mt-20">نموذج اقتراح محل...</div>
-      )} allowedRole="distributor" />} />
+      <Route path="/distributor/map" component={() => <ProtectedRoute component={DistributorMap} allowedRole="distributor" />} />
+      <Route path="/distributor/suggest" component={() => <ProtectedRoute component={SuggestStore} allowedRole="distributor" />} />
 
       <Route component={NotFound} />
     </Switch>

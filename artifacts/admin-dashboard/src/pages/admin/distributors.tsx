@@ -11,6 +11,20 @@ export default function Distributors() {
   const { data: distributors, isLoading } = useGetDistributors();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [editingDist, setEditingDist] = useState<Distributor | null>(null);
+  const deleteMutation = useDeleteDistributor();
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  const handleDelete = (id: number) => {
+    if (confirm("هل أنت متأكد من حذف هذا الموزع نهائياً؟ سيتم منعه من استخدام التطبيق فوراً.")) {
+      deleteMutation.mutate({ id }, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['/api/distributors'] });
+          toast({ title: "تم حذف الموزع بنجاح" });
+        }
+      });
+    }
+  };
 
   if (isLoading) return <div className="p-8 text-center">جاري التحميل...</div>;
 
@@ -62,6 +76,13 @@ export default function Distributors() {
                   <td className="p-4 flex items-center gap-2">
                     <button onClick={() => setEditingDist(dist)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                       <Edit2 className="w-4 h-4" />
+                    </button>
+                    <button 
+                      onClick={() => handleDelete(dist.id)} 
+                      disabled={deleteMutation.isPending}
+                      className="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors disabled:opacity-50"
+                    >
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </td>
                 </tr>
