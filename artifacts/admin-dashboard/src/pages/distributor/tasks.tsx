@@ -112,6 +112,18 @@ function DeliveryModal({ task, onClose }: { task: any, onClose: () => void }) {
   const updateTaskMutation = useUpdateTask();
   
   const [amountCollected, setAmountCollected] = useState(task.totalAmount.toString());
+  const [photoBase64, setPhotoBase64] = useState<string>("");
+
+  const handlePhotoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        setPhotoBase64(ev.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,7 +138,7 @@ function DeliveryModal({ task, onClose }: { task: any, onClose: () => void }) {
             amountCollected: Number(amountCollected),
             latitude: task.storeLatitude, // Should be current location in real app
             longitude: task.storeLongitude,
-            photoUrl: "https://images.unsplash.com/photo-1620803554446-4131ee68ea82?w=400&h=300&fit=crop" // Mock image
+            photoUrl: photoBase64 || "https://images.unsplash.com/photo-1620803554446-4131ee68ea82?w=400&h=300&fit=crop" // Fallback mock image
           }
         }, {
           onSuccess: () => {
@@ -159,12 +171,18 @@ function DeliveryModal({ task, onClose }: { task: any, onClose: () => void }) {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-bold block">صورة الإيصال / التسليم</label>
-          <div className="border-2 border-dashed border-slate-300 rounded-xl p-8 flex flex-col items-center justify-center text-slate-500 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
-            <Camera className="w-8 h-8 mb-2" />
-            <span className="text-sm font-semibold">التقط صورة</span>
-          </div>
-          {/* Note: Mocking photo upload for this UI demo */}
+          <label className="text-sm font-bold block">صورة الإيصال / التسليم (اختياري)</label>
+          <label className="border-2 border-dashed border-slate-300 rounded-xl p-8 flex flex-col items-center justify-center text-slate-500 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors overflow-hidden relative">
+            <input type="file" accept="image/*" onChange={handlePhotoSelect} className="hidden" />
+            {photoBase64 ? (
+              <img src={photoBase64} alt="تم التقاط الصورة" className="absolute inset-0 w-full h-full object-cover" />
+            ) : (
+              <>
+                <Camera className="w-8 h-8 mb-2" />
+                <span className="text-sm font-semibold">اضغط لالتقاط صورة</span>
+              </>
+            )}
+          </label>
         </div>
 
         <button disabled={deliveryMutation.isPending || updateTaskMutation.isPending} className="w-full bg-primary text-white p-4 rounded-xl font-bold text-lg hover:bg-primary/90 mt-6 shadow-lg shadow-primary/25 disabled:opacity-50">

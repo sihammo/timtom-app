@@ -10,6 +10,18 @@ export default function SuggestStore() {
   const createMutation = useCreateStoreSuggestion();
   const [isLocating, setIsLocating] = useState(false);
   const [coords, setCoords] = useState<{ lat: number, lng: number } | null>(null);
+  const [photoBase64, setPhotoBase64] = useState<string>("");
+
+  const handlePhotoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        setPhotoBase64(ev.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleGetLocation = () => {
     if (!navigator.geolocation) {
@@ -42,7 +54,7 @@ export default function SuggestStore() {
       address: fd.get('address') as string,
       latitude: coords?.lat || 0,
       longitude: coords?.lng || 0,
-      photoUrl: "", // Handle photo upload in a real app
+      photoUrl: photoBase64,
     };
 
     if (!coords && !data.address) {
@@ -114,10 +126,17 @@ export default function SuggestStore() {
               <Camera className="w-4 h-4 text-primary" />
               صورة المحل (اختياري)
             </label>
-            <div className="w-full h-32 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400">
-               <Camera className="w-8 h-8 mb-2" />
-               <span className="text-xs">اضغط لالتقاط صورة</span>
-            </div>
+            <label className="w-full h-32 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 cursor-pointer hover:bg-slate-100 transition-colors relative overflow-hidden">
+               <input type="file" accept="image/*" onChange={handlePhotoSelect} className="hidden" />
+               {photoBase64 ? (
+                 <img src={photoBase64} alt="تم التقاط الصورة" className="absolute inset-0 w-full h-full object-cover" />
+               ) : (
+                 <>
+                   <Camera className="w-8 h-8 mb-2" />
+                   <span className="text-xs">اضغط لالتقاط أو اختيار صورة</span>
+                 </>
+               )}
+            </label>
           </div>
         </div>
 
