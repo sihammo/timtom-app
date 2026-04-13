@@ -16,8 +16,8 @@ export default function DistributorTasks() {
   
   if (isLoading) return <div className="p-8 text-center">جاري التحميل...</div>;
 
-  const pendingTasks = tasks?.filter(t => t.status === 'pending' || t.status === 'in_progress') || [];
-  const completedTasks = tasks?.filter(t => t.status === 'completed' || t.status === 'failed') || [];
+  const pendingTasks = tasks?.filter((t: any) => t.status === 'pending' || t.status === 'in_progress') || [];
+  const completedTasks = tasks?.filter((t: any) => t.status === 'completed' || t.status === 'failed') || [];
 
   return (
     <div className="space-y-6 pt-4 pb-24">
@@ -33,13 +33,13 @@ export default function DistributorTasks() {
         </div>
       ) : (
         <div className="space-y-4">
-          {pendingTasks.map((task) => (
+          {pendingTasks.map((task: any) => (
             <div key={task.id} className="bg-white rounded-3xl p-5 shadow-lg shadow-slate-200/50 border border-slate-100 relative overflow-hidden">
               <div className={`absolute top-0 right-0 w-2 h-full ${task.status === 'in_progress' ? 'bg-blue-500' : 'bg-amber-500'}`} />
               
               <div className="flex justify-between items-start mb-3">
                 <h3 className="font-bold text-lg text-slate-900">{task.storeName}</h3>
-                <Badge variant={task.status === 'in_progress' ? "primary" : "warning"} className="text-[10px]">
+                <Badge variant={task.status === 'in_progress' ? "default" : "warning"} className="text-[10px]">
                   {task.status === 'in_progress' ? "جاري التنفيذ" : "قيد الانتظار"}
                 </Badge>
               </div>
@@ -85,7 +85,7 @@ export default function DistributorTasks() {
         <div className="mt-8">
           <h3 className="font-bold text-lg text-slate-800 px-2 mb-4">مهام سابقة</h3>
           <div className="space-y-3">
-            {completedTasks.map((task) => (
+            {completedTasks.map((task: any) => (
               <div key={task.id} className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex justify-between items-center opacity-70">
                 <div>
                   <h4 className="font-bold text-slate-900">{task.storeName}</h4>

@@ -4,6 +4,11 @@ import pinoHttp from "pino-http";
 import session from "express-session";
 import router from "./routes";
 import { logger } from "./lib/logger";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app: Express = express();
 
@@ -44,5 +49,15 @@ app.use(
 );
 
 app.use("/api", router);
+
+// Serve static frontend in production
+const publicPath = path.resolve(__dirname, "../../admin-dashboard/dist/public");
+app.use(express.static(publicPath));
+app.get("*", (_req, res, next) => {
+  if (_req.path.startsWith("/api")) return next();
+  res.sendFile(path.join(publicPath, "index.html"), (err) => {
+    if (err) res.status(404).send("Front-end not built yet.");
+  });
+});
 
 export default app;

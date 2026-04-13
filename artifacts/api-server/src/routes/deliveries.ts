@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
   } else {
     deliveries = await db.select().from(deliveriesTable).orderBy(deliveriesTable.deliveredAt);
   }
-  const results = await Promise.all(deliveries.map(d => getDeliveryFull(d.id)));
+  const results = await Promise.all(deliveries.map((d: any) => getDeliveryFull(d.id)));
   res.json(results.filter(Boolean));
 });
 

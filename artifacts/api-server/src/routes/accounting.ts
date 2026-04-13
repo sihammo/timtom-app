@@ -34,10 +34,10 @@ router.get("/summary", async (req, res) => {
   }
 
   const storeDebts = await db.select({ debt: storesTable.debt }).from(storesTable);
-  const totalStoreDebts = storeDebts.reduce((sum, s) => sum + parseFloat(s.debt), 0);
+  const totalStoreDebts = storeDebts.reduce((sum: number, s: any) => sum + parseFloat(s.debt), 0);
 
   const distDebts = await db.select({ debt: distributorsTable.debt }).from(distributorsTable);
-  const totalDistributorDebts = distDebts.reduce((sum, d) => sum + parseFloat(d.debt), 0);
+  const totalDistributorDebts = distDebts.reduce((sum: number, d: any) => sum + parseFloat(d.debt), 0);
 
   const allTasks = await db.select({ id: tasksTable.id }).from(tasksTable);
   const deliveries = await db.select({ id: deliveriesTable.id }).from(deliveriesTable);
@@ -56,7 +56,7 @@ router.get("/summary", async (req, res) => {
 
 router.get("/debts/stores", async (_req, res) => {
   const stores = await db.select().from(storesTable).where(sql`${storesTable.debt}::numeric > 0`);
-  res.json(stores.map(s => ({
+  res.json(stores.map((s: any) => ({
     storeId: s.id,
     storeName: s.name,
     ownerName: s.ownerName,
@@ -80,7 +80,7 @@ router.get("/debts/distributors", async (_req, res) => {
     .innerJoin(usersTable, eq(distributorsTable.userId, usersTable.id))
     .where(sql`${distributorsTable.debt}::numeric > 0`);
 
-  res.json(result.map(d => ({
+  res.json(result.map((d: any) => ({
     distributorId: d.id,
     distributorName: `${d.firstName} ${d.lastName}`,
     phone: d.phone ?? "",

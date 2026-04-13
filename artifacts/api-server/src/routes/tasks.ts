@@ -31,7 +31,7 @@ async function getTaskFull(taskId: number) {
 router.get("/", async (req, res) => {
   const { distributorId, status } = req.query;
   let query = db.select().from(tasksTable).$dynamic();
-  const conditions = [];
+  const conditions: any[] = [];
   if (distributorId) conditions.push(eq(tasksTable.distributorId, parseInt(distributorId as string)));
   if (status) conditions.push(eq(tasksTable.status, status as any));
   if (conditions.length > 0) query = query.where(and(...conditions));
@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
     res.status(400).json({ error: "validation_error", message: "Missing required fields" }); return;
   }
   let totalAmount = 0;
-  const itemsWithNames = [];
+  const itemsWithNames: any[] = [];
   for (const item of items) {
     const products = await db.select().from(productsTable).where(eq(productsTable.id, item.productId));
     const product = products[0];

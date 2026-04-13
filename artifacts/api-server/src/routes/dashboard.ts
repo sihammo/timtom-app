@@ -37,13 +37,13 @@ router.get("/stats", async (_req, res) => {
   ]);
 
   const products = await db.select().from(productsTable);
-  const lowStockProducts = products.filter(p => p.quantity <= p.lowStockThreshold).length;
+  const lowStockProducts = products.filter((p: any) => p.quantity <= p.lowStockThreshold).length;
 
   const stores = await db.select().from(storesTable);
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-  const unvisitedStores = stores.filter(s => !s.lastVisit || s.lastVisit < thirtyDaysAgo).length;
+  const unvisitedStores = stores.filter((s: any) => !s.lastVisit || s.lastVisit < thirtyDaysAgo).length;
 
-  const storeDebts = stores.reduce((sum, s) => sum + parseFloat(s.debt), 0);
+  const storeDebts = stores.reduce((sum: number, s: any) => sum + parseFloat(s.debt), 0);
 
   const pendingDeliveries = await db.select({ id: deliveriesTable.id }).from(deliveriesTable)
     .where(eq(deliveriesTable.status, "pending_admin"));
