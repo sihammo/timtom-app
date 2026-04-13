@@ -53,7 +53,7 @@ app.use("/api", router);
 // Serve static frontend in production
 const publicPath = path.resolve(__dirname, "../../admin-dashboard/dist/public");
 app.use(express.static(publicPath));
-app.get("(.*)", (_req, res, next) => {
+app.get("/:path*", (_req, res, next) => {
   if (_req.path.startsWith("/api")) return next();
   res.sendFile(path.join(publicPath, "index.html"), (err) => {
     if (err) res.status(404).send("Front-end not built yet.");
